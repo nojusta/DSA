@@ -32,3 +32,9 @@ print(difference_set) # output {1, 2}
 # symmetric difference 
 sym_diff_set = set1 ^ set2
 print(sym_diff_set) # output {1, 2, 4, 5}
+
+# update
+set1.update(set2) # arba set1 |= set2
+
+print(set1) # output {1, 2, 3, 4, 5} 
+print(set2) # output {3, 4, 5} (nepasikeite)
