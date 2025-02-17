@@ -16,7 +16,7 @@ class Solution(object):
             wordToChar[w] = c
 
         return True 
-
+    
         # Time: O(n), n is the number of words in s (or pattern)
         # Memory: O(n), worst case scenario both hashmaps map for
         # every char in pattern and every word in s, which is n 
