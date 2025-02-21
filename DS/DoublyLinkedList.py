@@ -1,28 +1,33 @@
 class Node:
-    def __init__(self, data = None, next = None):
+    def __init__(self, data = None, next = None, prev = None):
         self.data = data
         self.next = next
+        self.prev = prev # added this
 
-class LinkedList:
+class DoublyLinkedList:
     def __init__(self):
         self.head = None
 
     def insert_at_beginning(self, data):
         node = Node(data, self.head)
+
+        # added this
+        if self.head:
+            self.head.prev = node
         self.head = node
 
     def print(self):
-            if self.head is None:
-                print("Linked list is empty")
-                return
+        if self.head is None:
+            print("Linked list is empty")
+            return
 
-            itr = self.head
-            while itr:
-                if itr.next:
-                    print(f"{itr.data} --> ", end = "")
-                else:
-                    print(itr.data)
-                itr = itr.next
+        itr = self.head
+        while itr:
+            if itr.next:
+                print (f"{itr.data} <--> ", end = "")
+            else:
+                print (itr.data)
+            itr = itr.next
 
     def insert_at_end(self, data):
         if self.head is None:
@@ -30,12 +35,12 @@ class LinkedList:
             return
 
         itr = self.head
-        while itr.next: # iterates while there is a next node
-            itr = itr.next # keep going forward until it reachres the end
+        while itr.next:
+            itr = itr.next
 
-        itr.next = Node(data, None)
+        itr.next = Node(data, None, itr) # added itr to point to the current last node
 
-    def insert_values(self, data_list): # creates new LinkedList with multiple values
+    def insert_values(self, data_list):
         self.head = None
         for data in data_list:
             self.insert_at_end(data)
@@ -43,6 +48,7 @@ class LinkedList:
     def get_length(self):
         count = 0
         itr = self.head
+
         while itr:
             count += 1
             itr = itr.next
@@ -55,12 +61,15 @@ class LinkedList:
 
         if index == 0:
             self.head = self.head.next
+            # added if statement
+            if self.head:
+                self.head.prev = None
             return
 
         count = 0
         itr = self.head
         while itr:
-            if count == index - 1: # previous element
+            if count == index - 1:
                 itr.next = itr.next.next
                 break
 
@@ -79,14 +88,16 @@ class LinkedList:
         itr = self.head
         while itr:
             if count == index - 1:
-                itr.next = Node(data, itr.next)
+                # update here to point to next & prev
+                node = Node(data, itr.next, itr)
+                if itr.next:
+                    itr.next.prev = node
                 break
             count += 1
             itr = itr.next
 
-
 if __name__ == '__main__':
-    ll = LinkedList()
+    ll = DoublyLinkedList()
     ll.insert_at_beginning(5)
     ll.insert_at_beginning(34)
     ll.insert_at_end(12)
@@ -97,6 +108,3 @@ if __name__ == '__main__':
     ll.remove_at_index(4)
     ll.insert_at_index(4, 32)
     ll.print()
-
-
-c
