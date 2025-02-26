@@ -12,11 +12,11 @@ class Solution(object):
 
         # places each numbver into the bucket that corresponds to its frequency (c)
         # if a number appears c times, it is appended to the list at freq[c]
+        # n - key, c - value (from count hashmap)
         for n, c in count.items():
             freq[c].append(n)
 
-        res = []
-
+        res = [] # stores the k most frequent elements
 
         # The loop starts at index ′len(freq) - 1′.
         # It stops before reaching ′0′ (so it iterates until index 1).
